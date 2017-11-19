@@ -13,9 +13,15 @@ struct node
 typedef struct node *Nodeptr;
 //correct till here (TESTED)
 
+Nodeptr getnode()
+{
+	return ((Nodeptr) malloc(sizeof(Nodeptr)));
+}
 //gonna check this (Linked List Implementations 
 void insertData(Nodeptr p)
-{
+{		
+	Nodeptr new;
+	//CHECK
 	printf("Enter the name of the passenger");
 	scanf("%c",p->name);
 	printf("Enter the Frequent flyer ID");
@@ -25,7 +31,17 @@ void insertData(Nodeptr p)
 	printf("Where you are travelling to?");
 	scanf("%c",p->to);
 	
-	
+	/* or can be done like this?
+	printf("Enter the name of the passenger");
+	scanf("%c",name);
+	printf("Enter the Frequent flyer ID");
+	scanf("%d",&frequentFlyID);
+	printf("Where you are travelling from?");
+	scanf("%c",from);
+	printf("Where you are travelling to?");
+	scanf("%c",to);
+	p->
+	*/
 
 }
 //will be added soon
