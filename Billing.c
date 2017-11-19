@@ -1,12 +1,18 @@
- #include<stdio.h>
- #include<conio.h>
+//simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) 
+#include<stdio.h>
  #include<stdlib.h>
 
  void input();
- void writefile();
  void search();
  void output();
 
+//linked list for storing passenger info
+struct node
+{
+	int info;
+	int frequentFlyID;
+	char name[40];
+	
  struct date{
 	   int month;
 	   int day;
