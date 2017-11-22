@@ -1,50 +1,85 @@
-//simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) 
+//simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) and FILE HANDLING
 #include<stdio.h>
  #include<stdlib.h>
 //linked list for storing passenger info
-struct node
+typedef struct
 {
-	//int info;
-	int frequentFlyID;
-	char name[40];
-	char from[10],to[10];
-	struct node *link;
-};
-typedef struct node *Nodeptr;
-Nodeptr new;
-new->link=NULL;
-//correct till here (TESTED)
+	///Name of the Passenger
+	char passenger_name[30];
+	///Departure City
+	char departure_city[20];
+	///Destination City
+	char destination_city[20];
+	///Name of the airline
+	char airline[20];
+	///Flight Number
+	char flight_number[10];
+	///Date of Journey
+	char date[10];
+	///Reference number of the booking
+	char booking_reference[20];
+	///Fare of the ticket
+	int fare;
+	///Status of booking - Valid or Deleted
+	bool active;
+	///Departure time
+	struct tm dep;
+	///Arrival time
+	struct tm arr;
 
-Nodeptr getnode()
+
+}ticket;
+///Pointer to the structure array containing bookings
+ticket *booking;
+/// File  variable for flights.txt
+FILE* fo;
+/// File variable for availableFlights.txt
+FILE* fi;
+/**
+ * \brief Increases the capacity of the structure
+ *
+ * Increases capacity of the structure if the array of structures is completely filled.
+ *
+ */
+void increaseCapacity()
 {
-	return ((Nodeptr) malloc(sizeof(Nodeptr)));
+	if(nTicket==capacity-1)
+		{
+			capacity*=2;
+			booking=(ticket*)realloc(booking, capacity*sizeof(ticket));
+		}
 }
-//gonna check this (Linked List Implementations 
-void insertData(Nodeptr p)
-{		
-	int c;
-	//CHECK
-	while(new->link!=NULL)
-	{
-		Nodeptr temp;
-		new->link=temp;
-	}
-	printf("Enter the name of the passenger");
-	scanf("%c",p->name);
-	printf("Enter the Frequent flyer ID");
-	scanf("%d",&p->frequentFlyID);
-	printf("Where you are travelling from?");
-	scanf("%c",p->from);
-	printf("Where you are travelling to?");
-	scanf("%c",p->to);
-	
+/**
+ *  Rewrites file containing bookings
+ *
+ * Rewrites the file containing the bookings
+ *  after deleting a booking (active changed to false)
+ */
+void rewriteFile()
+{
+	FILE* fb;
+	fb=fopen("src/bookings.dat","w+");
+	int size=sizeof(ticket);
+	int i=0;
+	for(i=0;i<=nTicket;i++)
+		fwrite(&booking[i], size, 1, fb);
+	fclose(fb);
+}
+
+/**
+ *  Reads file containing the bookings
+ *
+ * Opens bookings.dat and copies the structure variables present into  structure array
+ */
+void readFile()
+{
+	FILE *fb;
+	fb =  fopen("src/bookings.dat","r");
+	int size=sizeof(ticket);
+
+	while(fread(&booking[++nTicket], size, 1, fb)==1)
+		increaseCapacity();
+	--nTicket;
+	fclose(fb);
 
 }
-//will be added soon
-/* if a person check the price of the flight from a particular destination to xyz more than 2 times, the price 
-increases by some values*/
-/*TODO:
-	1. flights available list make 
-	2. check whether to use files or compile time values for list of places and price
-	3. 
-
