@@ -1,4 +1,6 @@
-//simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) and FILE HANDLING
+/*simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) and FILE HANDLING
+DS Project by Piyush Anay and Ansh
+*/
 #include<stdio.h>
  #include<stdlib.h>
 //linked list for storing passenger info
