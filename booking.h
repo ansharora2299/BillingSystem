@@ -1,8 +1,12 @@
 /*simple project to store frequent passenger information and airlines billing system! (dynamic Pricing) and FILE HANDLING
 DS Project by Piyush Anay and Ansh
 */
-#include<stdio.h>
- #include<stdlib.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+#ifndef BOOKING_H_
+#define BOOKING_H_
+typedef enum { false, true } bool;
 //linked list for storing passenger info
 int nTicket=-1;
 ///Number of bookings that the structure array can store
