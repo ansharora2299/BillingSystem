@@ -24,7 +24,7 @@ void addNode(sn nn)
 if(start==NULL)
 {
 start=nn;
-start->link=NULL;
+ nc++;
 }
 temp=start;
 while(temp->link!=NULL)
