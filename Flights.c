@@ -116,9 +116,9 @@ else if(n<=nc && n>2)
 {
 int i;
 sn curr = start;
-for(i=1;i<n-1 || temp==NULL;i++)
+for(i=1;i<n-1 || temp!=NULL;i++)
 {
-temp=temp->link;
+curr=curr->link;
 }
 
 temp=curr->link;
