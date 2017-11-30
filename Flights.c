@@ -99,7 +99,7 @@ void delete_nth_node(int n)
 if(n==1)
 {
 temp=start;
-start=NULL;
+start=start->link;
 free(temp);
 nc--;
 }
