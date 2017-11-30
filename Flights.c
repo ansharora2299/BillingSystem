@@ -21,6 +21,7 @@ int nc=0;
 
 void addNode(sn nn)
 {
+	nn->link=NULL;
 if(start==NULL)
 {
 start=nn;
@@ -31,7 +32,7 @@ while(temp->link!=NULL)
 temp=temp->link;
 
 temp->link=nn;
-nn->link=NULL;
+
 nc++;
 }
 
