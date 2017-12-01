@@ -11,7 +11,8 @@ struct node* link;
 };
 
 typedef struct node* sn;
-sn start=NULL,temp=NULL;
+sn start=NULL;
+sn temp=NULL;
 
 int nc=0;
 
@@ -40,7 +41,7 @@ int i;
 temp=start;
 for(i=1;temp!=NULL;i++)
 {
-printf("%d> %s TO %s\nAT : %s\nFARE = %d",i,temp->src,temp->dest,temp->time,temp->fare);
+printf("%d> %s TO %s\nAT : %s\nFARE = %d\n",i,temp->src,temp->dest,temp->time,temp->fare);
 temp=temp->link;
 }
 //sn searchList(char s[], char d[]);
@@ -48,7 +49,7 @@ temp=temp->link;
 
 void addFlight()
 {
-sn nn = (sn) malloc(sizeof(sn));
+sn nn = (sn)malloc(sizeof(struct node));
 printf("Enter Source\n");
 scanf("%s",nn->src);
 
@@ -94,7 +95,7 @@ displayList();
 
 if(start!=NULL)
 {
-printf("Enter nth flight to delete\n");
+printf("\nEnter nth flight to delete\n");
 scanf("%d",&n);
 delete_nth_node(n);
 return;
@@ -164,7 +165,6 @@ int main()
 			}
 			break;
 		case 2:
-
 			displayList();
 			/*printf("Enter\n 1. New Booking\n 2. Display Booking\n 3. Delete Booking\n");
 			scanf("%d",&choice_user);
