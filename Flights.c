@@ -171,11 +171,66 @@ else
 printf("Invalid Flight No. Selected");
 }
 
+void putData()
+{
+if(start==NULL)
+{
+printf("Nothing to write\n");
+return;
+}
+
+FILE *fp;
+fp=fopen("data.txt","w");
+
+if(fp!=NULL)
+{
+int i;
+temp=start;
+for(i=1;temp!=NULL;i++)
+{
+fprintf(fp,"%s\t%s\t%s\t%d\n",temp->src,temp->dest,temp->time,temp->fare);
+temp=temp->link;
+}
+fclose(fp);
+printf("\nData Written\n");
+}
+else
+printf("Error Writing Data\n");
+}
+
+void getData()
+{
+
+FILE *fp;
+fp=fopen("data.txt","r");
+rewind(fp);
+if(fp!=NULL)
+{
+
+temp=start;
+while(!feof(fp))
+{
+sn nn = (sn)malloc(sizeof(struct node));
+fscanf(fp,"%s\t%s\t%s\t%d\n",nn->src,nn->dest,nn->time,&nn->fare);
+addNode(nn);
+}
+}
+else
+{
+printf("Error retreiving data\n");
+return;
+}
+
+printf("Data Read\n");
+return;
+}
+
 
 int main()
 {
 	
 	int choice_user,choice, ch;
+	getData();
 	while(choice!=3)
 	{
 		printf("Enter\n 1. Administrator\n 2. User\n 3. Exit\n");
@@ -212,10 +267,11 @@ int main()
 				break;
 			}
 			break;
-		}		}
-
-
-	}
-
+		case 3:	putData();
+			exit(0);
+                        break;
+		}	
+ 	  }
+     }
 }
 
