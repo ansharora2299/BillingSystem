@@ -93,50 +93,6 @@ printf("%s TO %s\nAT : %s\nFARE = %d",temp->src,temp->dest,temp->time,temp->fare
 }
 */
 
-void delete_nth_node(int n)
-{
-
-if(n==1)
-{
-temp=start;
-start=start->link;
-free(temp);
-nc--;
-}
-
-else if(n==2)
-{
-temp = start->link;
-start->link=NULL;
-free(temp);
-nc--;
-}
-
-else if(n<=nc && n>2)
-{
-int i;
-sn curr = start;
-for(i=1;i<n-1 || temp!=NULL;i++)
-{
-curr=curr->link;
-}
-
-temp=curr->link;
-
-if(n==nc)
-curr->link=NULL;
-
-else
-curr->link=temp->link;
-
-free(temp);
-nc--;
-}
-else
-{
-printf("Invalid Value of n\n");
-}
-}
 
 
 void deleteFlight()
@@ -152,6 +108,45 @@ scanf("%d",&n);
 delete_nth_node(n);
 return;
 }
+}
+
+void delete_nth_node(int n)
+{
+int c=0;
+temp=start;
+if(start->link==NULL&&n==1)
+{
+start=NULL;
+free(temp);
+}
+else if(start->link!=NULL&&n==1)
+{
+start=start->link;
+free(temp);
+}
+else if(start->link!=NULL&&n>1)
+{
+sn temp2=NULL;
+if(n!=nc)
+{
+for(int i=1;i<n-1;i++)
+temp=temp->link;
+temp2=temp->link;
+temp->link=temp2->link;
+free(temp2);
+}
+else
+{
+while(temp->!=NULL)
+{
+temp2=temp;
+temp=temp->link;
+}
+temp2->link=NULL;
+free(temp);
+}
+}
+nc--;
 }
 
 
