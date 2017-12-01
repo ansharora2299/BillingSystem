@@ -6,36 +6,33 @@ struct node
 {
 char src[Size],dest[Size];
 char time[5];
-
 int fare;
-
 struct node* link;
 };
 
 typedef struct node* sn;
 sn start=NULL,temp=NULL;
 
-
 int nc=0;
-
 
 void addNode(sn nn)
 {
-	nn->link=NULL;
+nn->link=NULL;
 if(start==NULL)
 {
 start=nn;
- nc++;
-}
-temp=start;
-while(temp->link!=NULL)
-temp=temp->link;
-
-temp->link=nn;
-
 nc++;
 }
-
+else
+{
+temp=start;
+while(temp->link!=0)
+temp=temp->link;
+temp->link=nn;
+nc++;
+}
+return;
+}
 
 void displayList()
 {
@@ -49,10 +46,8 @@ temp=temp->link;
 //sn searchList(char s[], char d[]);
 }
 
-
 void addFlight()
 {
-
 sn nn = (sn) malloc(sizeof(sn));
 printf("Enter Source\n");
 scanf("%s",nn->src);
@@ -67,9 +62,7 @@ printf("Enter base fare\n");
 scanf("%d",&nn->fare);
 
 addNode(nn);
-
 }
-
 
 /*void searchFlight()
 {
@@ -92,8 +85,6 @@ printf("%s TO %s\nAT : %s\nFARE = %d",temp->src,temp->dest,temp->time,temp->fare
 
 }
 */
-
-
 
 void deleteFlight()
 {
@@ -148,9 +139,6 @@ free(temp);
 }
 nc--;
 }
-
-
-
 
 int main()
 {
