@@ -104,6 +104,8 @@ return;
 
 void delete_nth_node(int n)
 {
+if(n<=nc)
+{
 temp=start;
 if(start->link==NULL&&n==1)
 {
@@ -139,21 +141,24 @@ free(temp);
 }
 nc--;
 }
+else
+printf("Invalid Flight No.");
+}
 
 int main()
 {
 	
 	int choice_user,choice, ch;
-	while(1)
+	while(choice!=3)
 	{
 		printf("Enter\n 1. Administrator\n 2. User\n 3. Exit\n");
 		scanf("%d", &choice);
 		switch(choice)
 		{
 		case 1:
-			printf("Enter\n 1. Add new flight\n 2. Delete Flight\n");
+			printf("Enter\n 1. Add new flight\n 2. Delete Flight\n 3. Exit\n");
 			scanf("%d",&ch);
-			scanf("%*c");
+			//scanf("%*c");
 			switch(ch)
 			{
 			case 1:
@@ -181,11 +186,7 @@ int main()
 				break;
 			}*/
 			break;
-
-		case 3:
-			exit(0);
-			break;
-		}
+		}		}
 
 
 	}
