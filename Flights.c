@@ -6,36 +6,34 @@ struct node
 {
 char src[Size],dest[Size];
 char time[5];
-
 int fare;
-
 struct node* link;
 };
 
 typedef struct node* sn;
-sn start=NULL,temp=NULL;
-
+sn start=NULL;
+sn temp=NULL;
 
 int nc=0;
 
-
 void addNode(sn nn)
 {
-	nn->link=NULL;
+nn->link=NULL;
 if(start==NULL)
 {
 start=nn;
- nc++;
+nc++;
 }
+else
+{
 temp=start;
 while(temp->link!=NULL)
 temp=temp->link;
-
 temp->link=nn;
-
 nc++;
 }
-
+return;
+}
 
 void displayList()
 {
@@ -43,17 +41,15 @@ int i;
 temp=start;
 for(i=1;temp!=NULL;i++)
 {
-printf("%d> %s TO %s\nAT : %s\nFARE = %d",i,temp->src,temp->dest,temp->time,temp->fare);
+printf("%d> %s TO %s\nAT : %s\nFARE = %d\n",i,temp->src,temp->dest,temp->time,temp->fare);
 temp=temp->link;
 }
 //sn searchList(char s[], char d[]);
 }
 
-
 void addFlight()
 {
-
-sn nn = (sn) malloc(sizeof(sn));
+sn nn = (sn)malloc(sizeof(struct node));
 printf("Enter Source\n");
 scanf("%s",nn->src);
 
@@ -67,9 +63,7 @@ printf("Enter base fare\n");
 scanf("%d",&nn->fare);
 
 addNode(nn);
-
 }
-
 
 /*void searchFlight()
 {
@@ -93,8 +87,6 @@ printf("%s TO %s\nAT : %s\nFARE = %d",temp->src,temp->dest,temp->time,temp->fare
 }
 */
 
-
-
 void deleteFlight()
 {
 int n;
@@ -103,7 +95,7 @@ displayList();
 
 if(start!=NULL)
 {
-printf("Enter nth flight to delete\n");
+printf("\nEnter nth flight to delete\n");
 scanf("%d",&n);
 delete_nth_node(n);
 return;
@@ -112,7 +104,6 @@ return;
 
 void delete_nth_node(int n)
 {
-int c=0;
 temp=start;
 if(start->link==NULL&&n==1)
 {
@@ -137,7 +128,7 @@ free(temp2);
 }
 else
 {
-while(temp->!=NULL)
+while(temp->link!=NULL)
 {
 temp2=temp;
 temp=temp->link;
@@ -148,9 +139,6 @@ free(temp);
 }
 nc--;
 }
-
-
-
 
 int main()
 {
@@ -177,7 +165,6 @@ int main()
 			}
 			break;
 		case 2:
-
 			displayList();
 			/*printf("Enter\n 1. New Booking\n 2. Display Booking\n 3. Delete Booking\n");
 			scanf("%d",&choice_user);
