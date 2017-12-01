@@ -103,7 +103,6 @@ return;
 
 void delete_nth_node(int n)
 {
-int c=0;
 temp=start;
 if(start->link==NULL&&n==1)
 {
@@ -128,7 +127,7 @@ free(temp2);
 }
 else
 {
-while(temp->!=NULL)
+while(temp->link!=NULL)
 {
 temp2=temp;
 temp=temp->link;
