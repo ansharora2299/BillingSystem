@@ -119,23 +119,23 @@ free(temp);
 }
 else if(start->link!=NULL&&n>1)
 {
-sn temp2=NULL;
+sn curr=NULL;
 if(n!=nc)
 {
 for(int i=1;i<n-1;i++)
 temp=temp->link;
-temp2=temp->link;
-temp->link=temp2->link;
-free(temp2);
+curr=temp->link;
+temp->link=curr->link;
+free(curr);
 }
 else
 {
 while(temp->link!=NULL)
 {
-temp2=temp;
+curr=temp;
 temp=temp->link;
 }
-temp2->link=NULL;
+curr->link=NULL;
 free(temp);
 }
 }
@@ -144,6 +144,33 @@ nc--;
 else
 printf("Invalid Flight No.");
 }
+
+void newBooking()
+{
+char s[SIZE],d[SIZE];
+printf("Enter the source\n");
+scanf("%s",s);
+printf("Enter the Destination\n");
+scanf("%s",d);
+sn curptr=searchFlight(s,d);
+printf("Select the Flight to be booked\n");
+int i;
+temp=start1;
+for(i=1;temp!=NULL;i++)
+{
+printf("%d> %s TO %s\nAT : %s\nFARE = %d\n",i,temp->src,temp->dest,temp->time,temp->fare);
+temp=temp->link;
+}
+int n
+scanf("%d",&n);
+int j;
+for(j=1;j<n;j++)
+temp=temp->link;
+printf("Your Flight details are:\n%d> %s TO %s\nAT : %s\nFARE = %d\n",i,temp->src,temp->dest,temp->time,temp->fare);
+else
+printf("Invalid Flight No. Selected");
+}
+
 
 int main()
 {
@@ -170,8 +197,7 @@ int main()
 			}
 			break;
 		case 2:
-			displayList();
-			/*printf("Enter\n 1. New Booking\n 2. Display Booking\n 3. Delete Booking\n");
+			printf("Enter\n 1. New Booking\n 2. Display Booking\n 3. Delete Booking\n");
 			scanf("%d",&choice_user);
 			switch(choice_user)
 			{
@@ -184,7 +210,7 @@ int main()
 			case 3:
 				deleteBooking();
 				break;
-			}*/
+			}
 			break;
 		}		}
 
