@@ -26,7 +26,7 @@ nc++;
 else
 {
 temp=start;
-while(temp->link!=0)
+while(temp->link!=NULL)
 temp=temp->link;
 temp->link=nn;
 nc++;
