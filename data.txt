@@ -2,3 +2,7 @@ delhi	banglore	9	25785
 rpr	jpr	0500	2000
 rpr	jpr	56	67
 rpr	jpr	78	89
+delhi	bengaluru	09:30	4500
+delhi	bengaluru	08:30	4900
+delhi	goa	08:45	4500
+bengaluru	delhi	22:00	4400
