@@ -1,21 +1,23 @@
-#define Size 20
+//this is a custom header file, we're using this to make code compact and easy to read and modify in the .c file
+#define Size 30 //size for the source and Destination of the journey
 
-struct node
+struct node //structure used for using linked list node (Creation of nodes)
 {
-char src[Size],dest[Size];
-char time[5];
-int fare;
-struct node* link;
+  //all the data is defined here
+  char src[Size],dest[Size];
+  char time[5];
+  int fare;
+  struct node* link;
 };
 
-typedef struct node* sn;
+typedef struct node* sn; //typecasting is used to make our code compact
 sn start=NULL;
 sn start1=NULL;
 sn temp=NULL;
 
 int nc=0;
 
-sn addNode(sn nn,sn s)
+sn addNode(sn nn,sn s) //function to add flights
 {
 nn->link=NULL;
 if(s==NULL)
@@ -24,10 +26,10 @@ s=nn;
 }
 else
 {
-temp=s;
+  temp=s;
 while(temp->link!=NULL)
-temp=temp->link;
-temp->link=nn;
+    temp=temp->link;
+  temp->link=nn;
 }
 return s;
 }
@@ -36,58 +38,58 @@ void putData(char *file,sn s)
 {
 if(s==NULL)
 {
-printf("Nothing to write\n");
+  printf("Nothing to write\n");
 return;
 }
 
-FILE *fp;
-fp=fopen(file,"w");
+FILE *fp; //creating a file pointer
+fp=fopen(file,"w"); //opening file in write mode to write
 
-if(fp!=NULL)
+if(fp!=NULL) //to ammend changes in the file
 {
-int i;
-temp=s;
+  int i;
+  temp=s;
 for(i=1;temp!=NULL;i++)
 {
-fprintf(fp,"%s\t%s\t%s\t%d\n",temp->src,temp->dest,temp->time,temp->fare);
-temp=temp->link;
+  fprintf(fp,"%s\t%s\t%s\t%d\n",temp->src,temp->dest,temp->time,temp->fare); //the data is being stored after every tab space directly through the linkedList
+  temp=temp->link;
 }
-fclose(fp);
-printf("\nData Written\n");
-}
-else
-printf("Error Writing Data\n");
-}
-
-sn getData(char *file,sn s)
-{
-
-FILE *fp;
-fp=fopen(file,"r");
-rewind(fp);
-if(fp!=NULL)
-{
-
-temp=s;
-while(!feof(fp))
-{
-sn nn = (sn)malloc(sizeof(struct node));
-fscanf(fp,"%s\t%s\t%s\t%d\n",nn->src,nn->dest,nn->time,&nn->fare);
-s=addNode(nn,s);
-}
+  fclose(fp);//closing the file
+  printf("\nData Written\n");
 }
 else
+  printf("Error Writing Data\n");
+}
+
+sn getData(char *file,sn s)//function to retrieve data from file
 {
-printf("Error retreiving data\n");
-return s;
+
+  FILE *fp;
+  fp=fopen(file,"r");//read mode
+  rewind(fp);
+  if(fp!=NULL)
+  {
+
+      temp=s;
+      while(!feof(fp))
+      {
+        sn nn = (sn)malloc(sizeof(struct node));
+        fscanf(fp,"%s\t%s\t%s\t%d\n",nn->src,nn->dest,nn->time,&nn->fare);//adding in linked list again for code effieciency
+        s=addNode(nn,s);
+      }
+}
+else
+{
+  printf("Error retreiving data\n");
+  return s;
 }
 
-printf("Data Read\n");
-return s;
+  printf("Data Read\n");
+  return s;
 }
 
 
-void displayList(sn s)
+void displayList(sn s)//function to display data directly from
 {
 
 if(s==NULL)
@@ -184,7 +186,7 @@ return s;
 }
 }
 
-void addFlight()
+void addFlight()//Administrator function to add new flight in the database/file
 {
 sn nn = (sn)malloc(sizeof(struct node));
 printf("Enter Source\n");
@@ -263,7 +265,7 @@ char s[Size],d[Size];
 int n,i;
 
 printf("Enter source and Destination\n");
-scanf("%s %s",s,d); 
+scanf("%s %s",s,d);
 
 start1=search(s,d);
 displayList(start1);
