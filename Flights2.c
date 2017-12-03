@@ -1,25 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
-#include"Functions.h"
-#define Size 20
-
-int main()
-{
-	
-	int ch_user,ch, ch_adm;
-	char s[20],d[20];
- 	start=getData("data.txt",start);
-	while(1)
-	{
-		printf("Enter\n 1. Administrator\n 2. User\n 3. Exit\n");
-		scanf("%d", &ch);
-		switch(ch)
-		{
-		case 1:
-			printf("Enter\n 1. Add new flight\n 2. Delete Flight\n 3. Display All Flights\n 4. No of Flights\n");
-			scanf("%d",&ch_adm);
-			switch(ch_adm)
 #define Size 20
 
 struct node
@@ -57,6 +37,13 @@ return;
 
 void displayList()
 {
+
+if(start==NULL)
+{
+printf("Empty\n");
+return;
+}
+
 int i;
 temp=start;
 for(i=1;temp!=NULL;i++)
@@ -64,7 +51,7 @@ for(i=1;temp!=NULL;i++)
 printf("%d> %s TO %s\nAT : %s\nFARE = %d\n",i,temp->src,temp->dest,temp->time,temp->fare);
 temp=temp->link;
 }
-//sn searchList(char s[], char d[]);
+
 }
 
 void addFlight()
@@ -85,27 +72,8 @@ scanf("%d",&nn->fare);
 addNode(nn);
 }
 
-/*void searchFlight()
-{
 
-char s[Size],d[Size];
-
-printf("Enter Source\n");
-scanf("%s",s);
-
-printf("Enter Destination\n");
-scanf("%s",d);
-
-temp = searchList(s,d);
-
-if(temp==NULL)
-printf("No Flight Found\n");
-
-else
-printf("%s TO %s\nAT : %s\nFARE = %d",temp->src,temp->dest,temp->time,temp->fare);
-
-}
-*/
+void delete_nth_node(int n);
 
 void deleteFlight()
 {
@@ -116,54 +84,137 @@ displayList();
 if(start!=NULL)
 {
 printf("\nEnter nth flight to delete\n");
+printf("Enter 0 to exit\n");
 scanf("%d",&n);
+
+if(n!=0)
 delete_nth_node(n);
+
 return;
 }
 }
 
+
 void delete_nth_node(int n)
 {
+if(n<1 || n>nc)
+{
+printf("Invalid Value of n\n");
+deleteFlight();
+}
+if(start==NULL)
+{
+printf("Empty\n");
+return;
+}
+
 temp=start;
-if(start->link==NULL&&n==1)
+
+if(start->link==NULL)
 {
 start=NULL;
 free(temp);
-}
-else if(start->link!=NULL&&n==1)
-{
-start=start->link;
-free(temp);
-}
-else if(start->link!=NULL&&n>1)
-{
-sn temp2=NULL;
-if(n!=nc)
-{
-for(int i=1;i<n-1;i++)
-temp=temp->link;
-temp2=temp->link;
-temp->link=temp2->link;
-free(temp2);
+nc--;
+return;
 }
 else
 {
-while(temp->link!=NULL)
+
+if(n==1)
 {
-temp2=temp;
-temp=temp->link;
-}
-temp2->link=NULL;
+start=start->link;
 free(temp);
-}
-}
 nc--;
+return;
 }
 
+sn curr = start;
+
+if(n==nc)
+{
+
+while(curr->link->link!=NULL)
+curr=curr->link;
+
+temp=curr->link;
+curr->link=NULL;
+free(temp);
+nc--;
+return;
+}
+
+int i;
+for(i=1;i<n;i++)
+{
+curr=curr->link;
+}
+temp=curr->link;
+curr->link=temp->link;
+free(temp);
+nc--;
+return;
+}
+}
+
+
+void putData()
+{
+if(start==NULL)
+{
+printf("Nothing to write\n");
+return;
+}
+
+FILE *fp;
+fp=fopen("data.txt","w");
+
+if(fp!=NULL)
+{
+int i;
+temp=start;
+for(i=1;temp!=NULL;i++)
+{
+fprintf(fp,"%s\t%s\t%s\t%d\n",temp->src,temp->dest,temp->time,temp->fare);
+temp=temp->link;
+}
+fclose(fp);
+printf("\nData Written\n");
+}
+else
+printf("Error Writing Data\n");
+}
+
+void getData()
+{
+
+FILE *fp;
+fp=fopen("data.txt","r");
+rewind(fp);
+if(fp!=NULL)
+{
+
+temp=start;
+while(!feof(fp))
+{
+sn nn = (sn)malloc(sizeof(struct node));
+fscanf(fp,"%s\t%s\t%s\t%d\n",nn->src,nn->dest,nn->time,&nn->fare);
+addNode(nn);
+}
+}
+else
+{
+printf("Error retreiving data\n");
+return;
+}
+
+printf("Data Read\n");
+return;
+}
 int main()
 {
 	
 	int choice_user,choice, ch;
+ 	getData();
 	while(1)
 	{
 		printf("Enter\n 1. Administrator\n 2. User\n 3. Exit\n");
@@ -182,33 +233,6 @@ int main()
 			case 2:
 				deleteFlight();
 				break;
-			case 3: 
-				displayList(start);
-				break;
-			case 4: 
-				printf("No of Flights are is %d\n",getSize(start));
-				break;
-			}
-			break;
-
-		case 2:
-			printf("Enter\n 1. New Booking\n 2. Delete Booking\n 3. Display All Bookings\n");
-			scanf("%d",&ch_user);
-			switch(ch_user)
-			{
-			case 1: newBooking();
-				break;
-
-			case 2: deleteBooking();
-				break;
-
-			case 3: displayBookings();
-				break;
-			}
-			break;
-
-		case 3:	putData("data.txt",start);
-=======
 			}
 			break;
 		case 2:
@@ -229,7 +253,7 @@ int main()
 			}*/
 			break;
 
-		case 3:
+		case 3:	putData();
 			exit(0);
 			break;
 		}
@@ -238,4 +262,8 @@ int main()
 	}
 
 }
+
+
+
+
 
