@@ -208,7 +208,7 @@ int main()
 			break;
 
 		case 3:	putData("data.txt",start);
-=======
+
 			}
 			break;
 		case 2:
@@ -238,4 +238,3 @@ int main()
 	}
 
 }
-
